@@ -1,5 +1,7 @@
-# KLog
+# KLog 
 a kit for android log
+
+[![Download](https://api.bintray.com/packages/kerison/maven/KLog/images/download.svg) ](https://bintray.com/kerison/maven/KLog/_latestVersion)
 
 # KLog Usages
 
