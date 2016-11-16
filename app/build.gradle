@@ -22,6 +22,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.2.1'
-    compile project(':loglib')
-//    compile 'cn.kerison:klog:1.0.0'
+//    compile project(':loglib')
+    compile 'com.github.GKerison:KLog:2.0.0'
 }

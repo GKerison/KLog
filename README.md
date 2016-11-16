@@ -1,20 +1,37 @@
-# KLog 
-a kit for android log
+## KLog
+Android上一个简单易用的Log日志库
+- 支持自定义Tag
+- 支持自定义输出样式
+- 支持输出线程
+- 支持输出调用的方法名 文件名 包名 行数
+- 支持输出调用栈层级
+- 支持屏蔽日志
 
-[![Download](https://api.bintray.com/packages/kerison/maven/KLog/images/download.svg) ](https://bintray.com/kerison/maven/KLog/_latestVersion)
+[![](https://jitpack.io/v/GKerison/KLog.svg)](https://jitpack.io/#GKerison/KLog)
 
-# KLog Usages
+## KLog Usages
 
+1. 项目的build.gradle增加JitPack repository
+```
+allprojects {
+  repositories {
+    ...
+    maven { url "https://jitpack.io" }
+  }
+}
+```
+2. 模块的build.gradle增加dependency
 ````
 dependencies {
- compile 'cn.kerison:klog:1.0.0'
+    compile 'com.github.GKerison:KLog:2.0.0'
 }
 ````
+## 栗子
 
 ```
 KL.disable();//禁用log
 KL.config().setTag("GK").setMethodCount(1);//配置log
-KL.config() .hideExtraInfo();//隐藏线程、方法栈等信息
+KL.config().hideExtraInfo();//隐藏线程、方法栈等信息
 String name = "kerison";
 String json = " {\"citys\": [\n" +
 "        {\n" +
@@ -42,10 +59,7 @@ KL.json(json);
 KL.xml(xml);
 ```
 
-# KLog ScreenShot
-
-![文本预览](img/cn_kerison_log_text.png)
-
-![JSON预览](img/cn_kerison_log_json.png)
-
-![XML预览](img/cn_kerison_log_xml.png)
+## KLog ScreenShot
+个人使用的时候，建议配合自定义自己喜欢的Console的Log颜色和字体，打印出来的效果更明显。
+Setting > Editor > Colors&Fonts
+![Log预览](img/log.png)
