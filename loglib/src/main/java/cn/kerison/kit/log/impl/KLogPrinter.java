@@ -19,8 +19,6 @@ public class KLogPrinter implements ILogPrinter {
         public static final int WARN = 5;
         public static final int ERROR = 6;
         public static final int ASSERT = 7;
-//        public static final int ALL = Integer.MIN_VALUE;
-//        public static final int NONE = Integer.MAX_VALUE;
     }
 
     /**
@@ -39,13 +37,9 @@ public class KLogPrinter implements ILogPrinter {
     /**
      * Drawing Frame
      */
-    private static final char TOP_LEFT_BAR = '╔';
-    private static final char BOTTOM_LEFT_BAR = '╚';
-    private static final char MIDDLE_LEFT_BAR = '║';
-    private static final String DOUBLE_DIVIDER = "════════════════════════════════════════════";
-    private static final String TOP_BORDER = TOP_LEFT_BAR + DOUBLE_DIVIDER + DOUBLE_DIVIDER;
-    private static final String BOTTOM_BORDER = BOTTOM_LEFT_BAR + DOUBLE_DIVIDER + DOUBLE_DIVIDER;
-    private static final String MIDDLE_BORDER = String.valueOf(MIDDLE_LEFT_BAR) ;
+    private static final String TOP_BORDER = "┌ ";
+    private static final String BOTTOM_BORDER = "└  ";
+    private static final String MIDDLE_BORDER = "├  " ;
 
     private String mTag;
     private boolean isShowThread;
@@ -54,8 +48,8 @@ public class KLogPrinter implements ILogPrinter {
 
 
     public KLogPrinter() {
-        this.mTag = "KL☞";
-        this.mStackCount = 2;
+        this.mTag = "KL";
+        this.mStackCount = 1;
         this.isShowPackage = true;
         this.isShowThread = true;
     }
@@ -162,7 +156,7 @@ public class KLogPrinter implements ILogPrinter {
      * @param level
      */
     private void showTheadInfo(int level) {
-        print(level, mTag, String.format("%sThread:%s[%s]", MIDDLE_LEFT_BAR, Thread.currentThread().getName(), Thread.currentThread().getId()));
+        print(level, mTag, String.format("%sThread:%s[%s]", MIDDLE_BORDER, Thread.currentThread().getName(), Thread.currentThread().getId()));
     }
 
 
@@ -193,7 +187,7 @@ public class KLogPrinter implements ILogPrinter {
             StackTraceElement element = trace[STACK_OFFSET + i - 1];
 
             StringBuilder builder = new StringBuilder();
-            builder.append(MIDDLE_LEFT_BAR).append(isShowPackage ? element.getClassName() : getSimpleClassName(element.getClassName()))
+            builder.append(MIDDLE_BORDER).append(isShowPackage ? element.getClassName() : getSimpleClassName(element.getClassName()))
                     .append(".")
                     .append(element.getMethodName())
                     .append(" ")
@@ -255,7 +249,7 @@ public class KLogPrinter implements ILogPrinter {
     private void formatContent(int level, String tag, String content) {
         String[] lines = content.split(LR);
         for (String line : lines) {
-            print(level, tag, MIDDLE_LEFT_BAR + line);
+            print(level, tag, MIDDLE_BORDER + line);
         }
     }
 

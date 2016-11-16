@@ -1,4 +1,7 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group='com.github.GKerison'
 
 android {
     compileSdkVersion 23
@@ -7,8 +10,8 @@ android {
     defaultConfig {
         minSdkVersion 8
         targetSdkVersion 23
-        versionCode 101
-        versionName "1.0.1"
+        versionCode 200
+        versionName "2.0.0"
     }
     buildTypes {
         release {
@@ -20,5 +23,3 @@ android {
 
 dependencies {
 }
-
-apply from: project.rootDir.absolutePath+File.separator+'bintray.gradle'
