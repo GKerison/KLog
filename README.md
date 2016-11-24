@@ -9,6 +9,11 @@ Android上一个简单易用的Log日志库
 
 [![](https://jitpack.io/v/GKerison/KLog.svg)](https://jitpack.io/#GKerison/KLog)
 
+## KLog TODO :ear_of_rice:
+
+- [ ] 更方便的Log配置
+- [ ] 无参数的情况支持
+
 ## KLog Usages
 
 1. 项目的build.gradle增加JitPack repository
