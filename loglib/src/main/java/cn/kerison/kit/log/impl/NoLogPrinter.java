@@ -23,6 +23,11 @@ public class NoLogPrinter implements ILogPrinter {
     }
 
     @Override
+    public ILogPrinter setTextLevel(final int level) {
+        return this;
+    }
+
+    @Override
     public void v(final String msg) {
 
     }

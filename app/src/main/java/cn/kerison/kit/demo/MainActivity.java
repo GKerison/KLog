@@ -2,6 +2,7 @@ package cn.kerison.kit.demo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import cn.kerison.kit.log.KL;
 
@@ -15,10 +16,10 @@ public class MainActivity extends AppCompatActivity {
     }
     private void showLog() {
 
-//        KL.disable();
-//        KL.config().setTag("GK").setMethodCount(1);
-//        KL.config() .hideExtraInfo();
-        String name = "kerison";
+        KL.config(BuildConfig.DEBUG).setTag("DEBUG").setTextLevel(Log.WARN).setMethodCount(1);
+        KL.i();
+
+        String name = "WORLD";
         String json = " {\"citys\": [\n" +
                 "        {\n" +
                 "          \"id\": \"110000\",\n" +

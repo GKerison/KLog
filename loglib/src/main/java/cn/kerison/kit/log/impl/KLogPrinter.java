@@ -11,7 +11,7 @@ public class KLogPrinter implements ILogPrinter {
 
     public static class LogLevel {
         /**
-         * Log level value {@link Log}
+         * Log level value {@link android.util.Log}
          */
         public static final int VERBOSE = 2;
         public static final int DEBUG = 3;
@@ -39,12 +39,13 @@ public class KLogPrinter implements ILogPrinter {
      */
     private static final String TOP_BORDER = "┌ ";
     private static final String BOTTOM_BORDER = "└  ";
-    private static final String MIDDLE_BORDER = "├  " ;
+    private static final String MIDDLE_BORDER = "├  ";
 
     private String mTag;
     private boolean isShowThread;
     private boolean isShowPackage;
     private int mStackCount;
+    private int mTextLevel = LogLevel.INFO;
 
 
     public KLogPrinter() {
@@ -71,6 +72,12 @@ public class KLogPrinter implements ILogPrinter {
         this.mStackCount = 0;
         this.isShowPackage = false;
         this.isShowThread = false;
+        return this;
+    }
+
+    @Override
+    public ILogPrinter setTextLevel(final int level) {
+        mTextLevel = level;
         return this;
     }
 
@@ -106,36 +113,35 @@ public class KLogPrinter implements ILogPrinter {
 
     @Override
     public void text(final String msg) {
-        log(LogLevel.INFO, msg);
+        log(mTextLevel, msg);
     }
 
     /**
      * 打印log信息
-     *
-     * @param level
-     * @param msg
      */
     private synchronized void log(int level, String msg) {
 
         showTopBar(level);
 
         if (this.isShowThread) {
-            showTheadInfo(level);
+            showThreadInfo(level);
         }
 
         if (mStackCount > 0) {
             showStackTrace(level);
         }
 
-        showContent(level, msg);
-
+        if (msg != null && !"".equals(msg.trim())) {
+            if (this.isShowThread || mStackCount > 0) {
+                showDivider(level);
+            }
+            showContent(level, msg);
+        }
         showBottomBar(level);
     }
 
     /**
      * 打印顶部线
-     *
-     * @param level
      */
     private void showTopBar(int level) {
         print(level, mTag, TOP_BORDER);
@@ -143,8 +149,6 @@ public class KLogPrinter implements ILogPrinter {
 
     /**
      * 打印底部线
-     *
-     * @param level
      */
     private void showBottomBar(int level) {
         print(level, mTag, BOTTOM_BORDER);
@@ -152,18 +156,14 @@ public class KLogPrinter implements ILogPrinter {
 
     /**
      * 打印线程信息
-     *
-     * @param level
      */
-    private void showTheadInfo(int level) {
+    private void showThreadInfo(int level) {
         print(level, mTag, String.format("%sThread:%s[%s]", MIDDLE_BORDER, Thread.currentThread().getName(), Thread.currentThread().getId()));
     }
 
 
     /**
      * 打印分隔线
-     *
-     * @param level
      */
     private void showDivider(int level) {
         print(level, mTag, MIDDLE_BORDER);
@@ -171,8 +171,6 @@ public class KLogPrinter implements ILogPrinter {
 
     /**
      * 打印栈信息
-     *
-     * @param level
      */
     private void showStackTrace(int level) {
         StackTraceElement[] trace = Thread.currentThread().getStackTrace();
@@ -198,17 +196,10 @@ public class KLogPrinter implements ILogPrinter {
                     .append(")");
             print(level, mTag, builder.toString());
         }
-
-        if (count > 0) {
-            showDivider(level);
-        }
     }
 
     /**
      * 获取类名
-     *
-     * @param name
-     * @return
      */
     private String getSimpleClassName(String name) {
         if (name != null) {
@@ -225,9 +216,6 @@ public class KLogPrinter implements ILogPrinter {
 
     /**
      * 显示内容
-     *
-     * @param level
-     * @param msg
      */
     private void showContent(int level, String msg) {
         byte[] bytes = msg.getBytes();
@@ -241,10 +229,6 @@ public class KLogPrinter implements ILogPrinter {
 
     /**
      * 格式化内容 主要是换行操作
-     *
-     * @param level
-     * @param tag
-     * @param content
      */
     private void formatContent(int level, String tag, String content) {
         String[] lines = content.split(LR);

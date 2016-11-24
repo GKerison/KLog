@@ -29,21 +29,20 @@ public class KL {
     }
 
     private static final int TEXT_INDENT = 4;
-    private static ILogPrinter mPrinter = new KLogPrinter();
 
-    /**
-     * 禁用Log
-     */
-    public static void disable() {
-        mPrinter = new NoLogPrinter();
-    }
+    private static boolean isDebug = true;
+    private static ILogPrinter mPrinter = new KLogPrinter();
 
     /**
      * 设置
      *
      * @return Printer
      */
-    public static ILogPrinter config() {
+    public static ILogPrinter config(boolean debug) {
+        isDebug = debug;
+        if (!isDebug) {
+            mPrinter = new NoLogPrinter();
+        }
         return mPrinter;
     }
 
@@ -51,11 +50,42 @@ public class KL {
      * 自定义Printer
      *
      * @param printer 自定义ILogPrinter的实例
-     * @return Printer
      */
-    public static ILogPrinter setPrinter(ILogPrinter printer) {
-        mPrinter = printer;
-        return mPrinter;
+    public static void setPrinter(ILogPrinter printer) {
+        setPrinter(printer,false);
+    }
+
+    /**
+     * 自定义Printer
+     *
+     * @param printer 自定义ILogPrinter的实例
+     * @param force 忽略标志位，强制设置打印器
+     */
+    public static void setPrinter(ILogPrinter printer,boolean force) {
+        if (isDebug || force) {
+            mPrinter = printer;
+        }
+    }
+
+    /**
+     * 仅输出线程和方法栈
+     */
+    public static void d() {
+        mPrinter.d(" ");
+    }
+
+    /**
+     * 仅输出线程和方法栈
+     */
+    public static void i() {
+        mPrinter.i(" ");
+    }
+
+    /**
+     * 仅输出线程和方法栈
+     */
+    public static void w() {
+        mPrinter.w(" ");
     }
 
 
