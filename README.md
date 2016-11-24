@@ -11,8 +11,9 @@ Android上一个简单易用的Log日志库
 
 ## KLog TODO :ear_of_rice:
 
-- [ ] 更方便的Log配置
-- [ ] 无参数的情况支持
+- [x] 更方便的Log配置
+- [x] 无参数的情况支持 [支持d,i,w三种，其他没必要或自行输出空] 
+- [x] 自定义纯文本输出等级
 
 ## KLog Usages
 
@@ -28,15 +29,14 @@ allprojects {
 2. 模块的build.gradle增加dependency
 ````
 dependencies {
-    compile 'com.github.GKerison:KLog:2.0.0'
+    compile 'com.github.GKerison:KLog:2.1.0'
 }
 ````
 ## 栗子
 
 ```
-KL.disable();//禁用log
-KL.config().setTag("GK").setMethodCount(1);//配置log
-KL.config().hideExtraInfo();//隐藏线程、方法栈等信息
+KL.config(BuildConfig.DEBUG).setTag("DEBUG").setTextLevel(Log.WARN).setMethodCount(1);
+KL.i();
 String name = "kerison";
 String json = " {\"citys\": [\n" +
 "        {\n" +
