@@ -11,9 +11,9 @@ Android上一个简单易用的Log日志库
 
 ## KLog TODO :ear_of_rice:
 
-- [x] 更方便的Log配置
-- [x] 无参数的情况支持 [支持d,i,w三种，其他没必要或自行输出空] 
-- [x] 自定义纯文本输出等级
+- [x] 更方便的Log配置 [已完成]
+- [x] 无参数的情况支持 [已完成] 
+- [x] 自定义纯文本输出等级 [已完成]
 
 ## KLog Usages
 
@@ -66,5 +66,7 @@ KL.xml(xml);
 
 ## KLog ScreenShot
 个人使用的时候，建议配合自定义自己喜欢的Console的Log颜色和字体，打印出来的效果更明显。
-Setting > Editor > Colors&Fonts
+ - Setting > Editor > Colors&Fonts > Android Logcat
+ - 另存为自己的Scheme
+ - 修改前景色（去掉Use inherited attributes）
 ![Log预览](img/log.png)
